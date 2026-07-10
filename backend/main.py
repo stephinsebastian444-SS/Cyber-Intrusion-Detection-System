@@ -1,8 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from sqlalchemy.orm import Session
 
-from database import engine
 import models
+import schemas
+import crud
 
+from database import engine, get_db
 # Create FastAPI application
 app = FastAPI(
     title="Cyber Intrusion Detection System",
@@ -44,4 +47,14 @@ def about():
 def health():
     return {
         "server": "Healthy"
+    }
+
+# User Creation Route
+@app.post("/users")
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    created_user = crud.create_user(db=db, user=user)
+
+    return {
+        "message": "User created successfully",
+        "username": created_user.username
     }
