@@ -8,6 +8,12 @@ class UserCreate(BaseModel):
     username: str
     password: str
 
+class UserResponse(BaseModel):
+    id: int
+    username: str
+
+    class Config:
+        from_attributes = True    
 
 # ----------------------------
 # Alert Schema
@@ -19,3 +25,12 @@ class AlertResponse(BaseModel):
     risk_score: int
     reason: str
     recommendation: str
+
+class UserLogin(BaseModel):
+    username: str
+    password: str
+
+
+class LoginResponse(BaseModel):
+    message: str
+    username: str    
