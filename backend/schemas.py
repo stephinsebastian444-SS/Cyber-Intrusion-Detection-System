@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from datetime import datetime
 
 # ----------------------------
 # User Schema
@@ -18,13 +18,26 @@ class UserResponse(BaseModel):
 # ----------------------------
 # Alert Schema
 # ----------------------------
-class AlertResponse(BaseModel):
+class AlertCreate(BaseModel):
     source_ip: str
     attack_type: str
     severity: str
     risk_score: int
     reason: str
     recommendation: str
+
+class AlertResponse(BaseModel):
+    id: int
+    timestamp: datetime
+    source_ip: str
+    attack_type: str
+    severity: str
+    risk_score: int
+    reason: str
+    recommendation: str
+
+    class Config:
+        from_attributes = True
 
 class UserLogin(BaseModel):
     username: str

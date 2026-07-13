@@ -102,3 +102,11 @@ def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
 @app.get("/users", response_model=list[schemas.UserResponse])
 def get_users(db: Session = Depends(get_db)):
     return crud.get_users(db)
+
+@app.post("/alerts", response_model=schemas.AlertResponse)
+def create_alert(alert: schemas.AlertCreate, db: Session = Depends(get_db)):
+    return crud.create_alert(db=db, alert=alert)
+
+@app.get("/alerts", response_model=list[schemas.AlertResponse])
+def get_alerts(db: Session = Depends(get_db)):
+    return crud.get_alerts(db)

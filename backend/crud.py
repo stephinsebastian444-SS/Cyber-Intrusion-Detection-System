@@ -49,3 +49,23 @@ def authenticate_user(db, username, password):
         return None
 
     return user
+
+def create_alert(db: Session, alert: schemas.AlertCreate):
+
+    db_alert = models.Alert(
+        source_ip=alert.source_ip,
+        attack_type=alert.attack_type,
+        severity=alert.severity,
+        risk_score=alert.risk_score,
+        reason=alert.reason,
+        recommendation=alert.recommendation
+    )
+
+    db.add(db_alert)
+    db.commit()
+    db.refresh(db_alert)
+
+    return db_alert
+
+def get_alerts(db: Session):
+    return db.query(models.Alert).all()
