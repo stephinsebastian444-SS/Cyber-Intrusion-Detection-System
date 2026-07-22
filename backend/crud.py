@@ -69,3 +69,15 @@ def create_alert(db: Session, alert: schemas.AlertCreate):
 
 def get_alerts(db: Session):
     return db.query(models.Alert).all()
+
+def create_packet(db: Session, packet_data):
+
+    packet = models.Packet(**packet_data)
+
+    db.add(packet)
+
+    db.commit()
+
+    db.refresh(packet)
+
+    return packet

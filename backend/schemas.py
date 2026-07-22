@@ -47,3 +47,20 @@ class UserLogin(BaseModel):
 class LoginResponse(BaseModel):
     message: str
     username: str    
+
+class PacketResponse(BaseModel):
+    id: int
+    timestamp: datetime
+
+    source_ip: str
+    destination_ip: str
+
+    protocol: str
+
+    source_port: int | None
+    destination_port: int | None
+
+    packet_size: int
+
+class Config:
+        from_attributes = True
