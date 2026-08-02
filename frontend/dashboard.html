@@ -1,22 +1,198 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CyberShield IDS Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
 
-<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
 
-<h1>CyberShield IDS Dashboard</h1>
+        <h2>CyberShield IDS</h2>
 
-<p>🎉 Login Successful!</p>
+        <ul>
 
-<p>You have reached the dashboard.</p>
+            <li class="active">
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
 
-</div>
+            <li>
+                <a href="alerts.html">🚨 Alerts</a>
+            </li>
+
+            <li>
+                <a href="packets.html">📦 Packets</a>
+            </li>
+
+            <li>
+                <a href="live-monitor.html">📡 Live Monitor</a>
+            </li>
+
+            <li>
+                <a href="reports.html">📄 Reports</a>
+           </li>
+
+            <li>
+                <a href="settings.html">⚙ Settings</a>
+            </li>
+
+            <li>
+                <a href="login.html" id="logout">🚪 Logout</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <!-- Header -->
+        <header>
+
+            <div>
+                <h1>CyberShield IDS Dashboard</h1>
+                <p>Real-Time Network Intrusion Detection System</p>
+            </div>
+
+            <div>
+                <h3 id="welcomeUser">Welcome</h3>
+            </div>
+
+        </header>
+
+        <!-- Dashboard Cards -->
+        <section class="cards">
+
+            <div class="card">
+                <h3>Total Packets</h3>
+                <p id="totalPackets">0</p>
+            </div>
+
+            <div class="card">
+                <h3>Total Alerts</h3>
+                <p id="totalAlerts">0</p>
+            </div>
+
+            <div class="card critical">
+                <h3>Critical Alerts</h3>
+                <p id="criticalAlerts">0</p>
+            </div>
+
+            <div class="card high">
+                <h3>High Alerts</h3>
+                <p id="highAlerts">0</p>
+            </div>
+
+            <div class="card medium">
+                <h3>Medium Alerts</h3>
+                <p id="mediumAlerts">0</p>
+            </div>
+
+            <div class="card low">
+                <h3>Low Alerts</h3>
+                <p id="lowAlerts">0</p>
+            </div>
+
+        </section>
+
+        <!-- Tables -->
+        <section class="tables">
+
+            <!-- Recent Alerts -->
+            <div class="table-box">
+
+                <h2>Recent Alerts</h2>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Time</th>
+                            <th>Source IP</th>
+                            <th>Attack</th>
+                            <th>Severity</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="alertsTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Recent Packets -->
+            <div class="table-box">
+
+                <h2>Recent Packets</h2>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Time</th>
+                            <th>Source IP</th>
+                            <th>Destination IP</th>
+                            <th>Protocol</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="packetsTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer>
+
+            <p>CyberShield IDS v1.0 | Final Year Project</p>
+
+        </footer>
+
+    </div>
+    
+    <div class="charts">
+
+        <div class="chart-card">
+
+            <h2>Alerts by Severity</h2>
+
+            <canvas id="severityChart"></canvas>
+
+        </div>
+
+        <div class="chart-card">
+
+            <h2>Alert Distribution</h2>
+
+            <canvas id="pieChart"></canvas>
+
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/dashboard.js"></script>
 
 </body>
 

@@ -199,3 +199,17 @@ footer p{
     margin:0;
 
 }
+
+.sidebar a{
+    color:white;
+    text-decoration:none;
+    display:block;
+}
+
+.sidebar li{
+    list-style:none;
+}
+
+.sidebar a:hover{
+    color:#38bdf8;
+}

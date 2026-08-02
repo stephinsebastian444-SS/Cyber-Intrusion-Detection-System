@@ -32,6 +32,8 @@ if (loginForm) {
 
         if (response.ok) {
 
+            localStorage.setItem("username", result.username);
+
             message.style.color = "lightgreen";
             message.innerHTML = "✅ Login Successful!";
 
@@ -39,6 +41,8 @@ if (loginForm) {
                 window.location.href = "dashboard.html";
             }, 1000);
 
+
+            
         } else {
 
             message.style.color = "red";

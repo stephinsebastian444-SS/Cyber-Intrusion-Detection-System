@@ -1,57 +1,114 @@
-from sqlalchemy import Column, Integer, String, DateTime
 from datetime import datetime
+
+from sqlalchemy import Column, Integer, String, DateTime
 
 from database import Base
 
 
-# ----------------------------
+# ==========================================
 # Users Table
-# ----------------------------
+# ==========================================
+
 class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, nullable=False)
-    password = Column(String, nullable=False)
+
+    username = Column(
+        String,
+        unique=True,
+        nullable=False,
+        index=True
+    )
+
+    password = Column(
+        String,
+        nullable=False
+    )
 
 
-# ----------------------------
+# ==========================================
 # Packets Table
-# ----------------------------
+# ==========================================
+
 class Packet(Base):
     __tablename__ = "packets"
 
     id = Column(Integer, primary_key=True, index=True)
-    timestamp = Column(DateTime, default=datetime.utcnow)
 
-    source_ip = Column(String, nullable=False)
-    destination_ip = Column(String, nullable=False)
+    timestamp = Column(
+        DateTime,
+        default=datetime.utcnow,
+        nullable=False
+    )
 
-    protocol = Column(String, nullable=False)
+    source_ip = Column(
+        String,
+        nullable=False,
+        index=True
+    )
 
-    source_port = Column(Integer)
-    destination_port = Column(Integer)
+    destination_ip = Column(
+        String,
+        nullable=False,
+        index=True
+    )
 
-    packet_size = Column(Integer)
+    protocol = Column(
+        String,
+        nullable=False
+    )
+
+    source_port = Column(Integer, nullable=True)
+
+    destination_port = Column(Integer, nullable=True)
+
+    packet_size = Column(Integer, nullable=False)
 
 
-# ----------------------------
+# ==========================================
 # Alerts Table
-# ----------------------------
+# ==========================================
+
 class Alert(Base):
     __tablename__ = "alerts"
 
     id = Column(Integer, primary_key=True, index=True)
-    timestamp = Column(DateTime, default=datetime.utcnow)
 
-    source_ip = Column(String, nullable=False)
+    timestamp = Column(
+        DateTime,
+        default=datetime.utcnow,
+        nullable=False
+    )
 
-    attack_type = Column(String, nullable=False)
+    source_ip = Column(
+        String,
+        nullable=False,
+        index=True
+    )
 
-    severity = Column(String, nullable=False)
+    attack_type = Column(
+        String,
+        nullable=False
+    )
 
-    risk_score = Column(Integer)
+    severity = Column(
+        String,
+        nullable=False,
+        index=True
+    )
 
-    reason = Column(String)
+    risk_score = Column(
+        Integer,
+        nullable=False
+    )
 
-    recommendation = Column(String)
+    reason = Column(
+        String,
+        nullable=False
+    )
+
+    recommendation = Column(
+        String,
+        nullable=False
+    )

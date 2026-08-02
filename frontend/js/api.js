@@ -34,8 +34,13 @@ if (registerForm) {
             message.innerHTML = "✅ User registered successfully!";
             message.style.color = "lightgreen";
             registerForm.reset();
-        }
-        else {
+
+            setTimeout(() => {
+
+                window.location.href = "login.html";
+            }, 1000);
+        
+        }else {
             message.innerHTML = result.detail || "Registration failed.";
             message.style.color = "red";
         }

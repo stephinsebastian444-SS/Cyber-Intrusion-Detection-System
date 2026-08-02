@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Live Monitor</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <h2>CyberShield IDS</h2>
+
+    <ul>
+
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+        <li><a href="alerts.html">🚨 Alerts</a></li>
+
+        <li><a href="packets.html">📦 Packets</a></li>
+
+        <li class="active">
+            <a href="live-monitor.html">📡 Live Monitor</a>
+        </li>
+        
+        <li>
+             <a href="reports.html">📄 Reports</a>
+        </li>
+
+        <li><a href="settings.html">⚙ Settings</a></li>
+
+        <li><a href="login.html">🚪 Logout</a></li>
+
+    </ul>
+
+</div>
+
+<div class="main-content">
+
+    <header>
+
+        <h1>Live Network Monitor</h1>
+
+        <p>Automatically refreshes every 5 seconds</p>
+
+    </header>
+
+    <div class="table-box">
+
+        <h2>Latest Packets</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Time</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Protocol</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="livePackets">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <br>
+
+    <div class="table-box">
+
+        <h2>Latest Alerts</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Time</th>
+                    <th>Source</th>
+                    <th>Attack</th>
+                    <th>Severity</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="liveAlerts">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="js/live-monitor.js"></script>
+
+</body>
+
+</html>

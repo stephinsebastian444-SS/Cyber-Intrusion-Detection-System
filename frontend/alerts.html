@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>CyberShield IDS - Alerts</title>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/alerts.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+
+        <h2>CyberShield IDS</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+
+        <a href="alerts.html" class="active">Alerts</a>
+
+        <a href="packets.html">Packets</a>
+        
+        <a href="live-monitor.html">Live Monitor</a>
+
+        <a href="reports.html">Reports</a>
+
+        <a href="settings.html">Settings</a>
+
+        <a href="login.html">Logout</a>
+
+    </aside>
+
+    <main class="content">
+
+        <h1>Detected Intrusion Alerts</h1>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Time</th>
+                    <th>Source IP</th>
+                    <th>Attack</th>
+                    <th>Severity</th>
+                    <th>Risk</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="alertTable">
+
+            </tbody>
+
+        </table>
+
+    </main>
+
+</div>
+
+<script src="js/alerts.js"></script>
+
+</body>
+
+</html>

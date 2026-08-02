@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reports</title>
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>CyberShield IDS</h2>
+
+<ul>
+
+<li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+<li><a href="alerts.html">🚨 Alerts</a></li>
+
+<li><a href="packets.html">📦 Packets</a></li>
+
+<li><a href="live-monitor.html">📡 Live Monitor</a></li>
+
+<li><a href="settings.html">⚙ Settings</a></li>
+
+<li class="active">
+<a href="reports.html">📄 Reports</a>
+</li>
+
+<li><a href="login.html">🚪 Logout</a></li>
+
+</ul>
+
+</div>
+
+<div class="main-content">
+
+<header>
+
+<h1>Reports</h1>
+
+<p>Generate Cyber IDS Reports</p>
+
+</header>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Export Alerts</h3>
+
+<button id="exportAlerts">
+Download CSV
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>Export Packets</h3>
+
+<button id="exportPackets">
+Download CSV
+</button>
+
+</div>
+
+</div>
+
+<div class="table-box">
+
+<h2>System Summary</h2>
+
+<table>
+
+<tr>
+
+<td>Total Packets</td>
+
+<td id="packets">0</td>
+
+</tr>
+
+<tr>
+
+<td>Total Alerts</td>
+
+<td id="alerts">0</td>
+
+</tr>
+
+<tr>
+
+<td>Critical Alerts</td>
+
+<td id="critical">0</td>
+
+</tr>
+
+<tr>
+
+<td>High Alerts</td>
+
+<td id="high">0</td>
+
+</tr>
+
+<tr>
+
+<td>Medium Alerts</td>
+
+<td id="medium">0</td>
+
+</tr>
+
+<tr>
+
+<td>Low Alerts</td>
+
+<td id="low">0</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<script src="js/reports.js"></script>
+
+</body>
+
+</html>
