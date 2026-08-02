@@ -1,70 +1,91 @@
 const API_URL = "http://127.0.0.1:8000";
 
+// ----------------------------
+// Load Live Packets
+// ----------------------------
 async function loadPackets() {
 
-    const response = await fetch(`${API_URL}/packets`);
+    try {
 
-    const packets = await response.json();
+        const response = await fetch(`${API_URL}/packets`);
 
-    const table = document.getElementById("livePackets");
+        const packets = await response.json();
 
-    table.innerHTML = "";
+        const table = document.getElementById("livePackets");
 
-    packets.slice(-10).reverse().forEach(packet => {
+        table.innerHTML = "";
 
-        table.innerHTML += `
+        packets
+            .slice(-10)
+            .reverse()
+            .forEach(packet => {
 
-        <tr>
+                table.innerHTML += `
+                <tr>
+                    <td>${new Date(packet.timestamp).toLocaleString()}</td>
+                    <td>${packet.source_ip}</td>
+                    <td>${packet.destination_ip}</td>
+                    <td>${packet.protocol}</td>
+                </tr>
+                `;
 
-            <td>${new Date(packet.timestamp).toLocaleString()}</td>
+            });
 
-            <td>${packet.source_ip}</td>
+    }
 
-            <td>${packet.destination_ip}</td>
+    catch(error){
 
-            <td>${packet.protocol}</td>
+        console.error("Packet Error:", error);
 
-        </tr>
-
-        `;
-
-    });
+    }
 
 }
 
+// ----------------------------
+// Load Live Alerts
+// ----------------------------
 async function loadAlerts() {
 
-    const response = await fetch(`${API_URL}/alerts`);
+    try {
 
-    const alerts = await response.json();
+        const response = await fetch(`${API_URL}/alerts`);
 
-    const table = document.getElementById("liveAlerts");
+        const alerts = await response.json();
 
-    table.innerHTML = "";
+        const table = document.getElementById("liveAlerts");
 
-    alerts.slice(-10).reverse().forEach(alert => {
+        table.innerHTML = "";
 
-        table.innerHTML += `
+        alerts
+            .slice(-10)
+            .reverse()
+            .forEach(alert => {
 
-        <tr>
+                table.innerHTML += `
+                <tr>
+                    <td>${new Date(alert.timestamp).toLocaleString()}</td>
+                    <td>${alert.source_ip}</td>
+                    <td>${alert.attack_type}</td>
+                    <td>${alert.severity}</td>
+                </tr>
+                `;
 
-            <td>${new Date(alert.timestamp).toLocaleString()}</td>
+            });
 
-            <td>${alert.source_ip}</td>
+    }
 
-            <td>${alert.attack_type}</td>
+    catch(error){
 
-            <td>${alert.severity}</td>
+        console.error("Alert Error:", error);
 
-        </tr>
-
-        `;
-
-    });
+    }
 
 }
 
-function refresh() {
+// ----------------------------
+// Refresh Every 5 Seconds
+// ----------------------------
+function refresh(){
 
     loadPackets();
 
@@ -74,4 +95,4 @@ function refresh() {
 
 refresh();
 
-setInterval(refresh, 5000);
+setInterval(refresh,5000);
