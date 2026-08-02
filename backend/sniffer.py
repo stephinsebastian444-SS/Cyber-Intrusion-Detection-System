@@ -45,6 +45,33 @@ def process_packet(packet):
     }
 
     # -----------------------------
+    # Save Packet to Database
+    # -----------------------------
+    db = SessionLocal()
+
+    try:
+
+        crud.create_packet(
+            db=db,
+            packet_data={
+                "source_ip": packet_info["source_ip"],
+                "destination_ip": packet_info["destination_ip"],
+                "protocol": packet_info["protocol"],
+                "source_port": packet_info["source_port"],
+                "destination_port": packet_info["destination_port"],
+                "packet_size": packet_info["packet_size"]
+            }
+        )
+
+    except Exception as e:
+
+        print("Packet Save Error:", e)
+
+    finally:
+
+        db.close()
+
+    # -----------------------------
     # Ignore multicast / discovery traffic
     # -----------------------------
     if dport in [1900, 5353, 67, 68]:
