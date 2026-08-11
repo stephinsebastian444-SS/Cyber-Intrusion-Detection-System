@@ -9,13 +9,19 @@
     <title>CyberShield IDS Dashboard</title>
 
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
 
-    <!-- Sidebar -->
+    <!-- =========================
+         Sidebar
+    ========================== -->
+
     <div class="sidebar">
 
         <h2>CyberShield IDS</h2>
@@ -40,7 +46,7 @@
 
             <li>
                 <a href="reports.html">📄 Reports</a>
-           </li>
+            </li>
 
             <li>
                 <a href="settings.html">⚙ Settings</a>
@@ -54,62 +60,143 @@
 
     </div>
 
-    <!-- Main Content -->
+
+    <!-- =========================
+         Main Content
+    ========================== -->
+
     <div class="main-content">
 
         <!-- Header -->
+
         <header>
 
             <div>
+
                 <h1>CyberShield IDS Dashboard</h1>
-                <p>Real-Time Network Intrusion Detection System</p>
+
+                <p>
+                    Real-Time Network Intrusion Detection System
+                </p>
+
             </div>
 
             <div>
-                <h3 id="welcomeUser">Welcome</h3>
+
+                <h3 id="welcomeUser">
+                    Welcome
+                </h3>
+
             </div>
 
         </header>
 
-        <!-- Dashboard Cards -->
+
+        <!-- =========================
+             Dashboard Cards
+        ========================== -->
+
         <section class="cards">
 
             <div class="card">
+
                 <h3>Total Packets</h3>
+
                 <p id="totalPackets">0</p>
+
             </div>
+
 
             <div class="card">
+
                 <h3>Total Alerts</h3>
+
                 <p id="totalAlerts">0</p>
+
             </div>
+
 
             <div class="card critical">
+
                 <h3>Critical Alerts</h3>
+
                 <p id="criticalAlerts">0</p>
+
             </div>
+
 
             <div class="card high">
+
                 <h3>High Alerts</h3>
+
                 <p id="highAlerts">0</p>
+
             </div>
+
 
             <div class="card medium">
+
                 <h3>Medium Alerts</h3>
+
                 <p id="mediumAlerts">0</p>
+
             </div>
 
+
             <div class="card low">
+
                 <h3>Low Alerts</h3>
+
                 <p id="lowAlerts">0</p>
+
             </div>
 
         </section>
 
-        <!-- Tables -->
+
+        <!-- =========================
+             Charts
+        ========================== -->
+
+        <section class="charts">
+
+            <div class="chart-card">
+
+                <h2>Alerts by Severity</h2>
+
+                <div class="chart-container">
+
+                    <canvas id="severityChart"></canvas>
+
+                </div>
+
+            </div>
+
+
+            <div class="chart-card">
+
+                <h2>Protocol Distribution</h2>
+
+                <div class="chart-container">
+
+                    <canvas id="protocolChart"></canvas>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             Tables
+        ========================== -->
+
         <section class="tables">
 
+
             <!-- Recent Alerts -->
+
             <div class="table-box">
 
                 <h2>Recent Alerts</h2>
@@ -119,13 +206,19 @@
                     <thead>
 
                         <tr>
+
                             <th>Time</th>
+
                             <th>Source IP</th>
+
                             <th>Attack</th>
+
                             <th>Severity</th>
+
                         </tr>
 
                     </thead>
+
 
                     <tbody id="alertsTable">
 
@@ -135,7 +228,9 @@
 
             </div>
 
+
             <!-- Recent Packets -->
+
             <div class="table-box">
 
                 <h2>Recent Packets</h2>
@@ -145,13 +240,19 @@
                     <thead>
 
                         <tr>
+
                             <th>Time</th>
+
                             <th>Source IP</th>
+
                             <th>Destination IP</th>
+
                             <th>Protocol</th>
+
                         </tr>
 
                     </thead>
+
 
                     <tbody id="packetsTable">
 
@@ -163,35 +264,24 @@
 
         </section>
 
-        <!-- Footer -->
+
+        <!-- =========================
+             Footer
+        ========================== -->
+
         <footer>
 
-            <p>CyberShield IDS v1.0 | Final Year Project</p>
+            <p>
+                CyberShield IDS v1.0 | Final Year Project
+            </p>
 
         </footer>
 
     </div>
-    
-    <div class="charts">
 
-        <div class="chart-card">
 
-            <h2>Alerts by Severity</h2>
+    <!-- Dashboard JavaScript -->
 
-            <canvas id="severityChart"></canvas>
-
-        </div>
-
-        <div class="chart-card">
-
-            <h2>Alert Distribution</h2>
-
-            <canvas id="pieChart"></canvas>
-
-        </div>
-
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/dashboard.js"></script>
 
 </body>

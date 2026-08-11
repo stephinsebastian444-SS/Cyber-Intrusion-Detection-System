@@ -1,7 +1,7 @@
 const API_URL = "http://127.0.0.1:8000";
 
 let severityChart = null;
-let pieChart = null;
+let protocolChart = null;
 
 // ===============================
 // Load Dashboard Statistics
@@ -21,16 +21,18 @@ async function loadDashboard() {
         document.getElementById("mediumAlerts").innerText = data.medium_alerts;
         document.getElementById("lowAlerts").innerText = data.low_alerts;
 
-        // Destroy previous charts
+        // Destroy old charts
         if (severityChart) {
             severityChart.destroy();
         }
 
-        if (pieChart) {
-            pieChart.destroy();
+        if (protocolChart) {
+            protocolChart.destroy();
         }
 
-        // Severity Bar Chart
+        // ===============================
+        // Alert Severity Bar Chart
+        // ===============================
         severityChart = new Chart(
             document.getElementById("severityChart"),
             {
@@ -54,19 +56,21 @@ async function loadDashboard() {
             }
         );
 
-        // Pie Chart
-        pieChart = new Chart(
-            document.getElementById("pieChart"),
+        // ===============================
+        // Protocol Distribution Pie Chart
+        // ===============================
+        protocolChart = new Chart(
+            document.getElementById("protocolChart"),
             {
                 type: "pie",
                 data: {
-                    labels: ["Critical", "High", "Medium", "Low"],
+                    labels: ["TCP", "UDP", "ICMP", "Other"],
                     datasets: [{
                         data: [
-                            data.critical_alerts,
-                            data.high_alerts,
-                            data.medium_alerts,
-                            data.low_alerts
+                            data.tcp_packets,
+                            data.udp_packets,
+                            data.icmp_packets,
+                            data.other_packets
                         ]
                     }]
                 },
@@ -108,12 +112,12 @@ async function loadAlerts() {
             .forEach(alert => {
 
                 table.innerHTML += `
-                    <tr>
-                        <td>${new Date(alert.timestamp).toLocaleString()}</td>
-                        <td>${alert.source_ip}</td>
-                        <td>${alert.attack_type}</td>
-                        <td>${alert.severity}</td>
-                    </tr>
+                <tr>
+                    <td>${new Date(alert.timestamp).toLocaleString()}</td>
+                    <td>${alert.source_ip}</td>
+                    <td>${alert.attack_type}</td>
+                    <td>${alert.severity}</td>
+                </tr>
                 `;
 
             });
@@ -149,12 +153,12 @@ async function loadPackets() {
             .forEach(packet => {
 
                 table.innerHTML += `
-                    <tr>
-                        <td>${new Date(packet.timestamp).toLocaleString()}</td>
-                        <td>${packet.source_ip}</td>
-                        <td>${packet.destination_ip}</td>
-                        <td>${packet.protocol}</td>
-                    </tr>
+                <tr>
+                    <td>${new Date(packet.timestamp).toLocaleString()}</td>
+                    <td>${packet.source_ip}</td>
+                    <td>${packet.destination_ip}</td>
+                    <td>${packet.protocol}</td>
+                </tr>
                 `;
 
             });
@@ -208,5 +212,5 @@ async function refreshDashboard() {
 // Initial Load
 refreshDashboard();
 
-// Refresh every 5 seconds
+// Auto Refresh
 setInterval(refreshDashboard, 5000);

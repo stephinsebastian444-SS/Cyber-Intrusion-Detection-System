@@ -99,3 +99,47 @@ button:hover{
     background:darkred;
 
 }
+/* ============================
+   ALERT SEVERITY BADGES
+============================ */
+
+.severity-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.severity-badge.critical {
+    background: #dc2626;
+    color: white;
+}
+
+.severity-badge.high {
+    background: #ea580c;
+    color: white;
+}
+
+.severity-badge.medium {
+    background: #ca8a04;
+    color: white;
+}
+
+.severity-badge.low {
+    background: #16a34a;
+    color: white;
+}
+
+.delete-button {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 7px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background: #b91c1c;
+}

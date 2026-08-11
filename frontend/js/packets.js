@@ -2,42 +2,85 @@ const API_URL = "http://127.0.0.1:8000";
 
 async function loadPackets() {
 
-    const response = await fetch(`${API_URL}/packets`);
+    try {
 
-    const packets = await response.json();
+        const response = await fetch(`${API_URL}/packets`);
 
-    const table = document.getElementById("packetTable");
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
 
-    table.innerHTML = "";
+        const packets = await response.json();
 
-    packets.forEach(packet => {
+        console.log("Packets received:", packets);
 
-        table.innerHTML += `
+        const table = document.getElementById("packetTable");
 
-        <tr>
+        if (!table) {
+            console.error("ERROR: packetTable element not found.");
+            return;
+        }
 
-            <td>${packet.id}</td>
+        table.innerHTML = "";
 
-            <td>${new Date(packet.timestamp).toLocaleString()}</td>
+        if (packets.length === 0) {
 
-            <td>${packet.source_ip}</td>
+            table.innerHTML = `
+                <tr>
+                    <td colspan="8">
+                        No packets captured yet.
+                    </td>
+                </tr>
+            `;
 
-            <td>${packet.destination_ip}</td>
+            return;
+        }
 
-            <td>${packet.protocol}</td>
+        packets
+            .slice()
+            .reverse()
+            .forEach(packet => {
 
-            <td>${packet.source_port ?? "-"}</td>
+                const row = document.createElement("tr");
 
-            <td>${packet.destination_port ?? "-"}</td>
+                row.innerHTML = `
+                    <td>${packet.id}</td>
 
-            <td>${packet.packet_size}</td>
+                    <td>
+                        ${new Date(packet.timestamp).toLocaleString()}
+                    </td>
 
-        </tr>
+                    <td>${packet.source_ip}</td>
 
-        `;
+                    <td>${packet.destination_ip}</td>
 
-    });
+                    <td>${packet.protocol}</td>
 
+                    <td>${packet.source_port ?? "-"}</td>
+
+                    <td>${packet.destination_port ?? "-"}</td>
+
+                    <td>${packet.packet_size}</td>
+                `;
+
+                table.appendChild(row);
+
+            });
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load packets:",
+            error
+        );
+
+    }
 }
 
+
+// Initial load
 loadPackets();
+
+
+// Refresh every 5 seconds
+setInterval(loadPackets, 5000);

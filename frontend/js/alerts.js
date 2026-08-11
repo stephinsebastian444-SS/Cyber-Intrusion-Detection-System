@@ -1,64 +1,174 @@
 const API = "http://127.0.0.1:8000";
 
-loadAlerts();
+// ===============================
+// Load Alerts
+// ===============================
 
-async function loadAlerts(){
+async function loadAlerts() {
 
-    const response = await fetch(`${API}/alerts`);
+    try {
 
-    const alerts = await response.json();
+        const response = await fetch(`${API}/alerts`);
 
-    const table = document.getElementById("alertTable");
+        if (!response.ok) {
+            throw new Error("Failed to load alerts");
+        }
 
-    table.innerHTML = "";
+        const alerts = await response.json();
 
-    alerts.forEach(alert=>{
+        const table = document.getElementById("alertTable");
 
-        table.innerHTML += `
+        if (!table) {
+            console.error("alertTable element not found");
+            return;
+        }
 
-        <tr>
+        table.innerHTML = "";
 
-            <td>${alert.id}</td>
+        if (alerts.length === 0) {
 
-            <td>${new Date(alert.timestamp).toLocaleString()}</td>
+            table.innerHTML = `
+                <tr>
+                    <td colspan="7">
+                        No alerts detected.
+                    </td>
+                </tr>
+            `;
 
-            <td>${alert.source_ip}</td>
+            return;
+        }
 
-            <td>${alert.attack_type}</td>
+        alerts
+            .slice()
+            .reverse()
+            .forEach(alert => {
 
-            <td>${alert.severity}</td>
+                let severityClass = "";
 
-            <td>${alert.risk_score}</td>
+                if (alert.severity === "Critical") {
+                    severityClass = "critical";
+                }
+                else if (alert.severity === "High") {
+                    severityClass = "high";
+                }
+                else if (alert.severity === "Medium") {
+                    severityClass = "medium";
+                }
+                else if (alert.severity === "Low") {
+                    severityClass = "low";
+                }
 
-            <td>
+                table.innerHTML += `
 
-                <button onclick="deleteAlert(${alert.id})">
+                    <tr>
 
-                    Delete
+                        <td>
+                            ${alert.id}
+                        </td>
 
-                </button>
+                        <td>
+                            ${new Date(alert.timestamp).toLocaleString()}
+                        </td>
 
-            </td>
+                        <td>
+                            ${alert.source_ip}
+                        </td>
 
-        </tr>
+                        <td>
+                            ${alert.attack_type}
+                        </td>
 
-        `;
+                        <td>
+                            <span class="severity-badge ${severityClass}">
+                                ${alert.severity}
+                            </span>
+                        </td>
 
-    });
+                        <td>
+                            ${alert.risk_score}
+                        </td>
+
+                        <td>
+
+                            <button
+                                class="delete-button"
+                                onclick="deleteAlert(${alert.id})"
+                            >
+                                Delete
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            });
+
+    }
+
+    catch (error) {
+
+        console.error("Alerts Error:", error);
+
+    }
 
 }
 
-async function deleteAlert(id){
 
-    if(!confirm("Delete this alert?"))
+// ===============================
+// Delete Alert
+// ===============================
+
+async function deleteAlert(id) {
+
+    const confirmed = confirm(
+        "Are you sure you want to delete this alert?"
+    );
+
+    if (!confirmed) {
         return;
+    }
 
-    await fetch(`${API}/alerts/${id}`,{
+    try {
 
-        method:"DELETE"
+        const response = await fetch(
+            `${API}/alerts/${id}`,
+            {
+                method: "DELETE"
+            }
+        );
 
-    });
+        if (!response.ok) {
 
-    loadAlerts();
+            throw new Error(
+                "Failed to delete alert"
+            );
+
+        }
+
+        await loadAlerts();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Delete Alert Error:",
+            error
+        );
+
+        alert(
+            "Unable to delete the alert."
+        );
+
+    }
 
 }
+
+
+// ===============================
+// Initial Load
+// ===============================
+
+loadAlerts();

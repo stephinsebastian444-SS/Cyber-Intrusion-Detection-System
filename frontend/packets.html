@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Captured Packets</title>
+    <title>Captured Packets - CyberShield IDS</title>
 
     <link rel="stylesheet" href="css/dashboard.css">
 
@@ -14,85 +14,113 @@
 
 <body>
 
-<div class="sidebar">
+    <!-- =========================
+         Sidebar
+    ========================== -->
 
-    <h2>CyberShield IDS</h2>
+    <div class="sidebar">
 
-    <ul>
+        <h2>CyberShield IDS</h2>
 
-        <li>
-            <a href="dashboard.html">🏠 Dashboard</a>
-        </li>
+        <ul>
 
-        <li>
-            <a href="alerts.html">🚨 Alerts</a>
-        </li>
+            <li>
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
 
-        <li class="active">
-            <a href="packets.html">📦 Packets</a>
-        </li>
+            <li>
+                <a href="alerts.html">🚨 Alerts</a>
+            </li>
 
-        <li>
-            <a href="live-monitor.html">📡 Live Monitor</a>
-        </li>
+            <li class="active">
+                <a href="packets.html">📦 Packets</a>
+            </li>
 
-        <li>
-            <a href="reports.html">📄 Reports</a>
+            <li>
+                <a href="live-monitor.html">📡 Live Monitor</a>
+            </li>
 
-        <li>
-            <a href="settings.html">⚙ Settings</a>
-        </li>
+            <li>
+                <a href="reports.html">📄 Reports</a>
+            </li>
 
-        <li>
-            <a href="login.html">🚪 Logout</a>
-        </li>
+            <li>
+                <a href="settings.html">⚙ Settings</a>
+            </li>
 
-    </ul>
+            <li>
+                <a href="login.html" id="logout">🚪 Logout</a>
+            </li>
 
-</div>
-
-<div class="main-content">
-
-    <header>
-
-        <h1>Captured Packets</h1>
-
-        <p>All packets stored by the IDS</p>
-
-    </header>
-
-    <div class="table-box">
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>ID</th>
-                    <th>Time</th>
-                    <th>Source IP</th>
-                    <th>Destination IP</th>
-                    <th>Protocol</th>
-                    <th>Source Port</th>
-                    <th>Destination Port</th>
-                    <th>Packet Size</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="packetTable">
-
-            </tbody>
-
-        </table>
+        </ul>
 
     </div>
 
-</div>
 
-<script src="js/packets.js"></script>
+    <!-- =========================
+         Main Content
+    ========================== -->
+
+    <div class="main-content">
+
+        <header>
+
+            <div>
+
+                <h1>Captured Packets</h1>
+
+                <p>
+                    All packets stored by the CyberShield IDS.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================
+             Packets Table
+        ========================== -->
+
+        <div class="table-box">
+
+            <h2>Network Packets</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Time</th>
+                        <th>Source IP</th>
+                        <th>Destination IP</th>
+                        <th>Protocol</th>
+                        <th>Source Port</th>
+                        <th>Destination Port</th>
+                        <th>Packet Size</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="packetTable">
+
+                    <!-- Packets will be loaded here -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="js/packets.js"></script>
 
 </body>
 

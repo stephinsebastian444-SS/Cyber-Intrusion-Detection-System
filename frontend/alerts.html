@@ -2,71 +2,126 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-<title>CyberShield IDS - Alerts</title>
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/alerts.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Alerts - CyberShield IDS</title>
+
+    <link rel="stylesheet" href="css/alerts.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<div class="container">
+    <!-- =========================
+         Sidebar
+    ========================== -->
 
-    <aside class="sidebar">
+    <div class="sidebar">
 
         <h2>CyberShield IDS</h2>
 
-        <a href="dashboard.html">Dashboard</a>
+        <ul>
 
-        <a href="alerts.html" class="active">Alerts</a>
+            <li>
+                <a href="dashboard.html">🏠 Dashboard</a>
+            </li>
 
-        <a href="packets.html">Packets</a>
-        
-        <a href="live-monitor.html">Live Monitor</a>
+            <li class="active">
+                <a href="alerts.html">🚨 Alerts</a>
+            </li>
 
-        <a href="reports.html">Reports</a>
+            <li>
+                <a href="packets.html">📦 Packets</a>
+            </li>
 
-        <a href="settings.html">Settings</a>
+            <li>
+                <a href="live-monitor.html">📡 Live Monitor</a>
+            </li>
 
-        <a href="login.html">Logout</a>
+            <li>
+                <a href="reports.html">📄 Reports</a>
+            </li>
 
-    </aside>
+            <li>
+                <a href="settings.html">⚙ Settings</a>
+            </li>
 
-    <main class="content">
+            <li>
+                <a href="login.html" id="logout">🚪 Logout</a>
+            </li>
 
-        <h1>Detected Intrusion Alerts</h1>
+        </ul>
 
-        <table>
+    </div>
 
-            <thead>
 
-                <tr>
+    <!-- =========================
+         Main Content
+    ========================== -->
 
-                    <th>ID</th>
-                    <th>Time</th>
-                    <th>Source IP</th>
-                    <th>Attack</th>
-                    <th>Severity</th>
-                    <th>Risk</th>
-                    <th>Action</th>
+    <div class="main-content">
 
-                </tr>
+        <header>
 
-            </thead>
+            <div>
 
-            <tbody id="alertTable">
+                <h1>Detected Intrusion Alerts</h1>
 
-            </tbody>
+                <p>
+                    Monitor suspicious network activity detected by CyberShield IDS.
+                </p>
 
-        </table>
+            </div>
 
-    </main>
+        </header>
 
-</div>
 
-<script src="js/alerts.js"></script>
+        <!-- =========================
+             Alerts Table
+        ========================== -->
+
+        <div class="table-box">
+
+            <h2>Security Alerts</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Time</th>
+                        <th>Source IP</th>
+                        <th>Attack</th>
+                        <th>Severity</th>
+                        <th>Risk</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="alertTable">
+
+                    <!-- Alerts will be loaded here -->
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="js/alerts.js"></script>
 
 </body>
 
