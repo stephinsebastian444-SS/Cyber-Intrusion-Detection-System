@@ -191,13 +191,24 @@ def dashboard(db: Session = Depends(get_db)):
     medium = len([a for a in alerts if a.severity == "Medium"])
     low = len([a for a in alerts if a.severity == "Low"])
 
+    tcp = len([p for p in packets if p.protocol == "TCP"])
+    udp = len([p for p in packets if p.protocol == "UDP"])
+    icmp = len([p for p in packets if p.protocol == "ICMP"])
+    other = len([p for p in packets if p.protocol not in ["TCP", "UDP", "ICMP"]])
+
     return {
         "total_packets": len(packets),
         "total_alerts": len(alerts),
+
         "critical_alerts": critical,
         "high_alerts": high,
         "medium_alerts": medium,
-        "low_alerts": low
+        "low_alerts": low,
+
+        "tcp_packets": tcp,
+        "udp_packets": udp,
+        "icmp_packets": icmp,
+        "other_packets": other
     }
 
 @app.get("/status")
