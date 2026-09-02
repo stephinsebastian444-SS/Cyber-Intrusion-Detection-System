@@ -1,0 +1,336 @@
+/* ============================================================
+   CYBERSHIELD IDS - AUTHENTICATION PAGES
+   Login + Register
+============================================================ */
+
+
+/* ============================================================
+   AUTH PAGE
+============================================================ */
+
+.auth-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px;
+
+}
+
+
+/* ============================================================
+   AUTH CONTAINER
+============================================================ */
+
+.auth-container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+}
+
+
+/* ============================================================
+   AUTH CARD
+============================================================ */
+
+.auth-card {
+
+    background: #1e293b;
+
+    border: 1px solid #334155;
+
+    border-radius: 18px;
+
+    padding: 42px 38px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35);
+
+}
+
+
+/* ============================================================
+   BRAND
+============================================================ */
+
+.auth-brand {
+
+    color: #38bdf8;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* ============================================================
+   HEADING
+============================================================ */
+
+.auth-card h1 {
+
+    color: #f8fafc;
+
+    font-size: 40px;
+
+    margin-bottom: 12px;
+
+}
+
+
+/* ============================================================
+   SUBTITLE
+============================================================ */
+
+.auth-subtitle {
+
+    color: #94a3b8;
+
+    font-size: 15px;
+
+    line-height: 1.6;
+
+    margin-bottom: 30px;
+
+}
+
+
+/* ============================================================
+   FORM
+============================================================ */
+
+.auth-form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    text-align: left;
+
+}
+
+
+/* ============================================================
+   LABEL
+============================================================ */
+
+.auth-form label {
+
+    color: #cbd5e1;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: -10px;
+
+}
+
+
+/* ============================================================
+   INPUT
+============================================================ */
+
+.auth-form input {
+
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 14px;
+
+    border: 1px solid #475569;
+
+    border-radius: 9px;
+
+    background: #0f172a;
+
+    color: #f8fafc;
+
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.25s;
+
+}
+
+
+.auth-form input::placeholder {
+
+    color: #64748b;
+
+}
+
+
+.auth-form input:focus {
+
+    border-color: #38bdf8;
+
+    box-shadow:
+        0 0 0 3px rgba(56, 189, 248, 0.12);
+
+}
+
+
+/* ============================================================
+   AUTH BUTTON
+============================================================ */
+
+.auth-form button {
+
+    width: 100%;
+
+    height: 50px;
+
+    margin-top: 6px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #38bdf8;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+}
+
+
+.auth-form button:hover {
+
+    background: #0ea5e9;
+
+    transform: translateY(-1px);
+
+}
+
+
+.auth-form button:active {
+
+    transform: translateY(0);
+
+}
+
+
+/* ============================================================
+   MESSAGE
+============================================================ */
+
+.auth-message {
+
+    min-height: 22px;
+
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    color: #f87171;
+
+}
+
+
+/* ============================================================
+   PAGE SWITCH
+============================================================ */
+
+.auth-switch {
+
+    margin-top: 25px;
+
+    color: #94a3b8;
+
+    font-size: 14px;
+
+}
+
+
+.auth-switch a {
+
+    color: #38bdf8;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+}
+
+
+.auth-switch a:hover {
+
+    color: #7dd3fc;
+
+    text-decoration: underline;
+
+}
+
+
+/* ============================================================
+   SECURITY NOTE
+============================================================ */
+
+.auth-security {
+
+    margin-top: 22px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #334155;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 500px) {
+
+    .auth-page {
+
+        padding: 20px;
+
+    }
+
+    .auth-card {
+
+        padding: 32px 24px;
+
+    }
+
+    .auth-card h1 {
+
+        font-size: 34px;
+
+    }
+
+}

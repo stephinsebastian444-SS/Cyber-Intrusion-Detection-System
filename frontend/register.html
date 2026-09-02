@@ -2,46 +2,107 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Register - CyberShield IDS</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/login.css">
+
 </head>
 
-<body>
 
-<div class="container">
+<body class="auth-page">
 
-    <h1>Create Account</h1>
 
-    <p>Register to access the CyberShield IDS Dashboard.</p>
+<div class="auth-container">
 
-    <form id="registerForm">
+    <div class="auth-card">
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            required
+        <div class="auth-brand">
+            CYBERSHIELD IDS
+        </div>
+
+
+        <h1>Create Account</h1>
+
+
+        <p class="auth-subtitle">
+            Register to access the CyberShield IDS Dashboard.
+        </p>
+
+
+        <form
+            id="registerForm"
+            class="auth-form"
         >
 
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-        >
+            <label for="username">
+                Username
+            </label>
 
-        <button type="submit">
-            Register
-        </button>
+            <input
+                type="text"
+                id="username"
+                placeholder="Choose a username"
+                required
+            >
 
-    </form>
 
-    <p id="message"></p>
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Create a password"
+                required
+            >
+
+
+            <button type="submit">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <p
+            id="message"
+            class="auth-message"
+        ></p>
+
+
+        <p class="auth-switch">
+
+            Already have an account?
+
+            <a href="login.html">
+                Login
+            </a>
+
+        </p>
+
+
+        <div class="auth-security">
+
+            Your password is securely processed by the
+            CyberShield IDS backend.
+
+        </div>
+
+    </div>
 
 </div>
+
 
 <script src="js/api.js"></script>
 
