@@ -1,4 +1,4 @@
-from scapy.all import sniff, IP, TCP, UDP
+from scapy.all import sniff, IP, TCP, UDP, ICMP
 
 import detector
 import crud
@@ -62,12 +62,17 @@ def process_packet(packet):
 
 
     # --------------------------------------------------------
-    # Create packet information
-    #
-    # IMPORTANT:
-    # tcp_flags is NOT included here because the
-    # Packet database model does not have a tcp_flags column.
+    # ICMP Packet
     # --------------------------------------------------------
+
+    elif packet.haslayer(ICMP):
+
+        protocol = "ICMP"
+
+
+    # ========================================================
+    # CREATE PACKET INFORMATION
+    # ========================================================
 
     packet_info = {
 
@@ -81,32 +86,36 @@ def process_packet(packet):
 
         "destination_port": destination_port,
 
-        "packet_size": len(packet)
+        "packet_size": len(packet),
+
+        # Used by detector.py
+        # NOT stored in the packets database table
+        "tcp_flags": tcp_flags
 
     }
 
 
-    # --------------------------------------------------------
-    # Ignore multicast / discovery traffic
-    # --------------------------------------------------------
+    # ========================================================
+    # IGNORE MULTICAST / DISCOVERY TRAFFIC
+    # ========================================================
 
     if destination_port in [1900, 5353, 67, 68]:
 
         return
 
 
-    # --------------------------------------------------------
-    # Ignore router traffic
-    # --------------------------------------------------------
+    # ========================================================
+    # IGNORE ROUTER TRAFFIC
+    # ========================================================
 
     if packet_info["source_ip"] == "192.168.0.1":
 
         return
 
 
-    # --------------------------------------------------------
-    # Print packet information
-    # --------------------------------------------------------
+    # ========================================================
+    # PRINT PACKET INFORMATION
+    # ========================================================
 
     print(
         f"{packet_info['source_ip']} -> "
@@ -117,9 +126,9 @@ def process_packet(packet):
     )
 
 
-    # --------------------------------------------------------
-    # Special Kali detection message
-    # --------------------------------------------------------
+    # ========================================================
+    # SPECIAL KALI DETECTION MESSAGE
+    # ========================================================
 
     if packet_info["source_ip"] == "192.168.0.208":
 
@@ -128,6 +137,7 @@ def process_packet(packet):
         )
 
 
+    # Print complete packet information
     print(packet_info)
 
 
@@ -139,19 +149,51 @@ def process_packet(packet):
 
     try:
 
+        # IMPORTANT:
+        # Only send fields that actually exist
+        # in the Packet database model.
+        #
+        # tcp_flags is intentionally excluded.
+
+        packet_data = {
+
+            "source_ip": packet_info["source_ip"],
+
+            "destination_ip": packet_info["destination_ip"],
+
+            "protocol": packet_info["protocol"],
+
+            "source_port": packet_info["source_port"],
+
+            "destination_port": packet_info["destination_port"],
+
+            "packet_size": packet_info["packet_size"]
+
+        }
+
+
         crud.create_packet(
+
             db=db,
-            packet_data=packet_info
+
+            packet_data=packet_data
+
         )
 
+
         print("Packet saved to database.")
+
 
     except Exception as e:
 
         print(
+
             "Packet Database Error:",
+
             e
+
         )
+
 
     finally:
 
@@ -162,7 +204,21 @@ def process_packet(packet):
     # DETECT ATTACK
     # ========================================================
 
-    alert = detector.detect_attack(packet_info)
+    try:
+
+        alert = detector.detect_attack(packet_info)
+
+    except Exception as e:
+
+        print(
+
+            "Detector Error:",
+
+            e
+
+        )
+
+        return
 
 
     # ========================================================
@@ -186,6 +242,10 @@ def process_packet(packet):
 
         try:
 
+            # ----------------------------------------------
+            # Create Alert Schema
+            # ----------------------------------------------
+
             alert_data = schemas.AlertCreate(
 
                 source_ip=packet_info["source_ip"],
@@ -202,6 +262,10 @@ def process_packet(packet):
 
             )
 
+
+            # ----------------------------------------------
+            # Save Alert
+            # ----------------------------------------------
 
             crud.create_alert(
 
@@ -220,8 +284,11 @@ def process_packet(packet):
         except Exception as e:
 
             print(
+
                 "Alert Database Error:",
+
                 e
+
             )
 
 
@@ -250,6 +317,10 @@ print(
     "==================================="
 )
 
+
+# ============================================================
+# SCAPY SNIFF
+# ============================================================
 
 sniff(
 
