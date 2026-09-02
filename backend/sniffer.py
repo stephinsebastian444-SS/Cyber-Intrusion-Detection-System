@@ -8,13 +8,13 @@ from database import SessionLocal
 
 
 # ============================================================
-# Packet Processing
+# PACKET PROCESSING
 # ============================================================
 
 def process_packet(packet):
 
     # --------------------------------------------------------
-    # Ignore packets that do not contain an IP layer
+    # Ignore packets without an IP layer
     # --------------------------------------------------------
 
     if not packet.haslayer(IP):
@@ -22,7 +22,7 @@ def process_packet(packet):
 
 
     # --------------------------------------------------------
-    # Default packet values
+    # Default values
     # --------------------------------------------------------
 
     protocol = "Other"
@@ -34,7 +34,7 @@ def process_packet(packet):
 
 
     # --------------------------------------------------------
-    # TCP Packet
+    # TCP PACKET
     # --------------------------------------------------------
 
     if packet.haslayer(TCP):
@@ -49,7 +49,7 @@ def process_packet(packet):
 
 
     # --------------------------------------------------------
-    # UDP Packet
+    # UDP PACKET
     # --------------------------------------------------------
 
     elif packet.haslayer(UDP):
@@ -62,7 +62,7 @@ def process_packet(packet):
 
 
     # --------------------------------------------------------
-    # ICMP Packet
+    # ICMP PACKET
     # --------------------------------------------------------
 
     elif packet.haslayer(ICMP):
@@ -89,7 +89,7 @@ def process_packet(packet):
         "packet_size": len(packet),
 
         # Used by detector.py
-        # NOT stored in the packets database table
+        # Not stored in packets table
         "tcp_flags": tcp_flags
 
     }
@@ -114,7 +114,7 @@ def process_packet(packet):
 
 
     # ========================================================
-    # PRINT PACKET INFORMATION
+    # DISPLAY PACKET
     # ========================================================
 
     print(
@@ -127,7 +127,7 @@ def process_packet(packet):
 
 
     # ========================================================
-    # SPECIAL KALI DETECTION MESSAGE
+    # SPECIAL KALI MESSAGE
     # ========================================================
 
     if packet_info["source_ip"] == "192.168.0.208":
@@ -137,7 +137,7 @@ def process_packet(packet):
         )
 
 
-    # Print complete packet information
+    # Display complete packet information
     print(packet_info)
 
 
@@ -149,11 +149,9 @@ def process_packet(packet):
 
     try:
 
-        # IMPORTANT:
-        # Only send fields that actually exist
-        # in the Packet database model.
-        #
-        # tcp_flags is intentionally excluded.
+        # ----------------------------------------------------
+        # Only save fields that exist in Packet model
+        # ----------------------------------------------------
 
         packet_data = {
 
@@ -181,17 +179,16 @@ def process_packet(packet):
         )
 
 
-        print("Packet saved to database.")
+        print(
+            "Packet saved to database."
+        )
 
 
     except Exception as e:
 
         print(
-
             "Packet Database Error:",
-
             e
-
         )
 
 
@@ -206,28 +203,29 @@ def process_packet(packet):
 
     try:
 
-        alert = detector.detect_attack(packet_info)
+        alert = detector.detect_attack(
+            packet_info
+        )
+
 
     except Exception as e:
 
         print(
-
             "Detector Error:",
-
             e
-
         )
 
         return
 
 
     # ========================================================
-    # SAVE ALERT IF ATTACK DETECTED
+    # SAVE ALERT IF DETECTED
     # ========================================================
 
     if alert:
 
-        print("\n==============================")
+        print()
+        print("==============================")
 
         print(
             "Suspicious Packet Detected!"
@@ -235,16 +233,17 @@ def process_packet(packet):
 
         print(alert)
 
-        print("==============================\n")
+        print("==============================")
+        print()
 
 
         db = SessionLocal()
 
         try:
 
-            # ----------------------------------------------
-            # Create Alert Schema
-            # ----------------------------------------------
+            # ------------------------------------------------
+            # Create Alert schema
+            # ------------------------------------------------
 
             alert_data = schemas.AlertCreate(
 
@@ -263,9 +262,9 @@ def process_packet(packet):
             )
 
 
-            # ----------------------------------------------
-            # Save Alert
-            # ----------------------------------------------
+            # ------------------------------------------------
+            # Save alert
+            # ------------------------------------------------
 
             crud.create_alert(
 
@@ -284,11 +283,8 @@ def process_packet(packet):
         except Exception as e:
 
             print(
-
                 "Alert Database Error:",
-
                 e
-
             )
 
 
@@ -301,33 +297,40 @@ def process_packet(packet):
 # START PACKET SNIFFER
 # ============================================================
 
-print(
-    "==================================="
-)
+def start_sniffer():
 
-print(
-    "Packet Sniffer Started..."
-)
+    print(
+        "==================================="
+    )
 
-print(
-    "Press CTRL+C to Stop"
-)
+    print(
+        "Packet Sniffer Started..."
+    )
 
-print(
-    "==================================="
-)
+    print(
+        "Press CTRL+C to Stop"
+    )
+
+    print(
+        "==================================="
+    )
+
+
+    sniff(
+
+        iface=r"\Device\NPF_{5475494F-4E6E-4762-A913-E2CA4B01E0EB}",
+
+        prn=process_packet,
+
+        store=False
+
+    )
 
 
 # ============================================================
-# SCAPY SNIFF
+# RUN ONLY WHEN EXECUTED DIRECTLY
 # ============================================================
 
-sniff(
+if __name__ == "__main__":
 
-    iface=r"\Device\NPF_{5475494F-4E6E-4762-A913-E2CA4B01E0EB}",
-
-    prn=process_packet,
-
-    store=False
-
-)
+    start_sniffer()

@@ -8,7 +8,7 @@ import models
 # CONFIGURATION
 # ============================================================
 
-CLEANUP_INTERVAL_SECONDS = 3600
+CLEANUP_INTERVAL_SECONDS = 20
 
 
 # ============================================================
