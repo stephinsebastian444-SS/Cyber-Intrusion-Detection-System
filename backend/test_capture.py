@@ -1,128 +1,115 @@
-from detector import detect_attack
-
-
-def make_packet(
-    source_ip,
-    destination_ip,
-    destination_port,
-    protocol="TCP",
-    tcp_flags="S"
-):
-    return {
-        "source_ip": source_ip,
-        "destination_ip": destination_ip,
-        "protocol": protocol,
-        "source_port": 50000,
-        "destination_port": destination_port,
-        "packet_size": 100,
-        "tcp_flags": tcp_flags
-    }
+import detector
 
 
 print("===================================")
-print("CyberShield IDS Detector Test")
+print("CYBER IDS DETECTOR TEST")
 print("===================================")
 
 
 # ============================================================
-# TEST 1 - NORMAL TCP TRAFFIC
+# PORT SCAN TEST
 # ============================================================
 
-print("\n[TEST 1] Normal TCP traffic")
-
-packet = make_packet(
-    source_ip="10.0.0.10",
-    destination_ip="10.0.0.20",
-    destination_port=443,
-    tcp_flags="A"
-)
-
-result = detect_attack(packet)
-
-if result is None:
-
-    print("PASS - No alert generated.")
-
-else:
-
-    print("FAIL - Unexpected alert:")
-    print(result)
-
-
-# ============================================================
-# TEST 2 - PORT SCAN
-# ============================================================
-
-print("\n[TEST 2] Port Scan")
-
-port_scan_result = None
+print("\nTesting Port Scan...")
 
 for port in range(1, 13):
 
-    packet = make_packet(
-        source_ip="10.0.0.50",
-        destination_ip="10.0.0.20",
-        destination_port=port,
-        tcp_flags="S"
-    )
+    packet = {
+        "source_ip": "10.10.10.50",
+        "destination_ip": "10.10.10.100",
+        "protocol": "TCP",
+        "source_port": 50000 + port,
+        "destination_port": port,
+        "packet_size": 100,
+        "tcp_flags": "S"
+    }
 
-    result = detect_attack(packet)
+    alert = detector.detect_attack(packet)
 
-    if result is not None:
+    if alert:
 
-        port_scan_result = result
-
-
-if (
-    port_scan_result is not None
-    and port_scan_result["attack_type"] == "Port Scan"
-):
-
-    print("PASS - Port Scan detected.")
-    print(port_scan_result)
-
-else:
-
-    print("FAIL - Port Scan was not detected.")
+        print("\nPORT SCAN ALERT:")
+        print(alert)
 
 
 # ============================================================
-# TEST 3 - BRUTE FORCE
+# BRUTE FORCE TEST
 # ============================================================
 
-print("\n[TEST 3] Repeated SYN attempts")
+print("\nTesting Brute Force...")
 
-brute_force_result = None
+for attempt in range(16):
 
-for i in range(20):
+    packet = {
+        "source_ip": "10.10.10.60",
+        "destination_ip": "10.10.10.100",
+        "protocol": "TCP",
+        "source_port": 51000 + attempt,
+        "destination_port": 22,
+        "packet_size": 100,
+        "tcp_flags": "S"
+    }
 
-    packet = make_packet(
-        source_ip="10.0.0.60",
-        destination_ip="10.0.0.20",
-        destination_port=22,
-        tcp_flags="S"
-    )
+    alert = detector.detect_attack(packet)
 
-    result = detect_attack(packet)
+    if alert:
 
-    if result is not None:
-
-        brute_force_result = result
+        print("\nBRUTE FORCE ALERT:")
+        print(alert)
 
 
-if (
-    brute_force_result is not None
-    and brute_force_result["attack_type"] == "Brute Force"
-):
+# ============================================================
+# SYN FLOOD TEST
+# ============================================================
 
-    print("PASS - Brute Force detected.")
-    print(brute_force_result)
+print("\nTesting SYN Flood...")
 
-else:
+for attempt in range(31):
 
-    print("FAIL - Brute Force was not detected.")
+    packet = {
+        "source_ip": "10.10.10.70",
+        "destination_ip": "10.10.10.100",
+        "protocol": "TCP",
+        "source_port": 52000 + attempt,
+        "destination_port": 80,
+        "packet_size": 100,
+        "tcp_flags": "S"
+    }
+
+    alert = detector.detect_attack(packet)
+
+    if alert:
+
+        print("\nSYN FLOOD ALERT:")
+        print(alert)
+
+
+# ============================================================
+# ICMP FLOOD TEST
+# ============================================================
+
+print("\nTesting ICMP Flood...")
+
+for attempt in range(51):
+
+    packet = {
+        "source_ip": "10.10.10.80",
+        "destination_ip": "10.10.10.100",
+        "protocol": "ICMP",
+        "source_port": None,
+        "destination_port": None,
+        "packet_size": 100,
+        "tcp_flags": None
+    }
+
+    alert = detector.detect_attack(packet)
+
+    if alert:
+
+        print("\nICMP FLOOD ALERT:")
+        print(alert)
 
 
 print("\n===================================")
-print("Detector tests completed.")
+print("DETECTOR TEST COMPLETED")
 print("===================================")
