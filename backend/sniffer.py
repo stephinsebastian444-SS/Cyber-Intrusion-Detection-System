@@ -318,7 +318,7 @@ def start_sniffer():
 
     sniff(
 
-        iface=r"\Device\NPF_{5475494F-4E6E-4762-A913-E2CA4B01E0EB}",
+        iface="Software Loopback Interface 1",
 
         prn=process_packet,
 
