@@ -262,3 +262,6 @@ def main():
 
     print("=" * 68)
     if passed_count != len(results):
+            raise SystemExit(1)
+if __name__ == "__main__":
+    main()    
