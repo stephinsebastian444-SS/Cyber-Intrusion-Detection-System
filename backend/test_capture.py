@@ -125,6 +125,8 @@ def build_test_cases():
     )
 
     # Detector uses > PORT_THRESHOLD, so 11 unique destination ports cross a threshold of 10.
+        # Port Scan: 11 unique destination ports exceed the threshold of 10.
+        # Port Scan: 11 unique destination ports exceed the threshold of 10.
     port_scan_packets = [
         make_packet(
             source_ip="10.10.10.50",
@@ -134,8 +136,25 @@ def build_test_cases():
         )
         for i in range(11)
     ]
-    cases.append(("Brute Force indicator", brute_force_packets, {"Brute Force"}))
 
+    cases.append(
+        ("Port Scan", port_scan_packets, {"Port Scan"})
+    )
+
+    # Brute Force indicator: 15 SYN attempts to the same destination port.
+    brute_force_packets = [
+        make_packet(
+            source_ip="10.10.10.60",
+            source_port=51000 + i,
+            destination_port=22,
+            tcp_flags="S",
+        )
+        for i in range(15)
+    ]
+
+    cases.append(
+        ("Brute Force indicator", brute_force_packets, {"Brute Force"})
+    )
     # The SYN-Flood scenario also meets the brute-force-indicator rule at 15 attempts.
     # At 30 SYN packets, the SYN Flood rule is checked first and also triggers.
     syn_flood_packets = [
@@ -262,6 +281,6 @@ def main():
 
     print("=" * 68)
     if passed_count != len(results):
-            raise SystemExit(1)
+        raise SystemExit(1)
 if __name__ == "__main__":
     main()    
